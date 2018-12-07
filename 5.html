@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		var i=0
+		function loadXMLDocAdd(){    
+			if (i+1>10)
+				{
+           			alert("没有啦");
+				}else{
+						i++;
+						var xmlhttp;
+						if (window.XMLHttpRequest)
+						{
+		
+							xmlhttp=new XMLHttpRequest();
+						}else{
+		
+							xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+						}
+						xmlhttp.onreadystatechange=function(){
+
+							if (xmlhttp.readyState==4 && xmlhttp.status==200){
+									var json=JSON.parse(xmlhttp.responseText);
+									document.getElementById("classNumber").innerHTML=json.result[0].class_num;
+									document.getElementById("gender").innerHTML=json.result[0].gender;
+									document.getElementById("major").innerHTML=json.result[0].major;
+									document.getElementById("name").innerHTML=json.result[0].name;
+									document.getElementById("majorNumber").innerHTML=json.result[0].student_num;
+									document.getElementById("page").innerHTML="第"+i+"页";
+							}
+						}
+		
+						xmlhttp.open("GET","https://api.tumiv.com/v2/cqupt/student?page="+i+"&year=2015",true);
+						xmlhttp.send();
+    				}
+		}
+
+
+		function loadXMLDocReduce(){
+			if (i-1<1){
+				alert("没有啦");
+			}else{
+				i--;
+				var xmlhttp;
+				if (window.XMLHttpRequest){
+		
+					xmlhttp=new XMLHttpRequest();
+				}else{
+		
+					xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				xmlhttp.onreadystatechange=function(){
+					if (xmlhttp.readyState==4 && xmlhttp.status==200){
+						var json=JSON.parse(xmlhttp.responseText);
+						document.getElementById("classNumber").innerHTML=json.result[0].class_num;
+						document.getElementById("gender").innerHTML=json.result[0].gender;
+						document.getElementById("major").innerHTML=json.result[0].major;
+						document.getElementById("name").innerHTML=json.result[0].name;
+						document.getElementById("majorNumber").innerHTML=json.result[0].student_num;
+						document.getElementById("classNumber1").innerHTML=json.result[1].class_num;
+						document.getElementById("gender1").innerHTML=json.result[1].gender;
+						document.getElementById("major1").innerHTML=json.result[1].major;
+						document.getElementById("name1").innerHTML=json.result[1].name;
+						document.getElementById("majorNumber1").innerHTML=json.result[1].student_num;
+						document.getElementById("page").innerHTML="第"+i+"页";
+					}
+				}
+				xmlhttp.open("GET","https://api.tumiv.com/v2/cqupt/student?page="+i+"&year=2015",true);
+				xmlhttp.send();
+	
+			}
+		}
+	</script>
+</head>
+<body>
+
+	<h2>学生信息表</h2>
+	<button type="button" onclick="loadXMLDocReduce()">上一个</button>
+	<button type="button" onclick="loadXMLDocAdd()">下一个</button>
+	<div id="myDiv"></div>
+	<table  border="1">
+ 		<div>
+    		<div1>班级</div1>
+    		<div1> &emsp; &nbsp;性别</div1>
+    		<div1> &nbsp; &emsp;专业</div1>
+    		<div1>&nbsp;&nbsp;姓名</div1>
+    		<div1>&nbsp;学号</div1>
+    	</div>
+    	<div>
+        	<div1 id="classNumber"></div1>
+        	<div1 id="gender"></div1>
+        	<div1 id="major"></div1>
+        	<div1 id="name"></div1>
+        	<div1 id="majorNumber"></div1>
+    	</div>
+    	<div>
+        	<div1 id="classNumber1"></div1>
+        	<div1 id="gender1"></div1>
+       		<div1 id="major1"></div1>
+        	<div1 id="name1"></div1>
+        	<div1 id="majorNumber1"></div1>
+   	 	</div>
+</table>
+<div id="page"></div>
+
+</body>
+</html>
